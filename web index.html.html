@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <title>Zuhdi Partners | Investor Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://cryptologos.cc/logos/bitcoin-btc-logo.png" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Font Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { inter: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    .parallax{background-attachment:fixed;background-size:cover;background-position:center}
+    .fade-up{opacity:0;transform:translateY(40px);transition:all .8s ease}
+    .fade-up.show{opacity:1;transform:translateY(0)}
+      .infinity{display:inline-block;animation:spin 4s linear infinite;color:#34d399;text-shadow:0 0 12px rgba(52,211,153,.8)}
+    @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+      /* Micro-interaction text */
+    .link-glide{position:relative;display:inline-block}
+    .link-glide:after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:linear-gradient(90deg,#34d399,#22d3ee);transition:width .4s ease}
+    .link-glide:hover:after{width:100%}
+
+    /* Highlight text */
+    .text-highlight{background:linear-gradient(120deg,rgba(52,211,153,.25),transparent);padding:0 .25rem;border-radius:.25rem}
+
+    /* Particle canvas */
+    #particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+    /* Cinematic toggle */
+    .theme-transition{transition:background 1s ease,color 1s ease}
+  </style>
+  <style>
+    .parallax{background-attachment:fixed;background-size:cover;background-position:center}
+    .fade-up{opacity:0;transform:translateY(40px);transition:all .8s ease}
+    .fade-up.show{opacity:1;transform:translateY(0)}
+    .glow:hover{box-shadow:0 0 40px rgba(16,185,129,.4);transform:translateY(-6px) scale(1.02)}
+    .ticker{white-space:nowrap;animation:ticker 20s linear infinite}
+    @keyframes ticker{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+  </style>
+  <style>
+    .parallax{background-attachment:fixed;background-size:cover;background-position:center}
+    .fade-up{opacity:0;transform:translateY(40px);transition:all .8s ease}
+    .fade-up.show{opacity:1;transform:translateY(0)}
+    .glow:hover{box-shadow:0 0 40px rgba(16,185,129,.4);transform:translateY(-6px) scale(1.02)}
+    .ticker{white-space:nowrap;animation:ticker 20s linear infinite}
+    @keyframes ticker{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+
+    /* BTC Mascot Background */
+    .btc-bg::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background-image:url('https://images.unsplash.com/photo-1622630998477-20aa696ecb05');
+      background-size:cover;
+      background-position:center;
+      opacity:.12;
+      z-index:0;
+    }
+        .btc-float{
+      position:absolute;
+      width:90px;
+      opacity:.35;
+      filter:drop-shadow(0 0 20px rgba(255,180,0,.4));
+      animation:float 14s ease-in-out infinite;
+      z-index:1;
+    }
+    .btc-float.one{top:12%;left:8%}
+    .btc-float.two{top:20%;right:10%;animation-delay:3s}
+    .btc-float.three{bottom:25%;left:15%;animation-delay:6s}
+    .btc-float.four{bottom:15%;right:20%;animation-delay:9s}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+  </style>
+  <style>
+    :root{--g1:#0f172a;--g2:#020617;--accent:#34d399}
+    body{background:linear-gradient(135deg,#020617,#020617,#0b1220,#020617);background-size:400% 400%;animation:bgShift 20s ease infinite}
+    @keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    .fade-up{opacity:0;transform:translateY(40px);transition:all .9s cubic-bezier(.4,0,.2,1)}
+    .fade-up.show{opacity:1;transform:translateY(0)}
+
+    .glow{transition:all .4s ease}
+    .glow:hover{box-shadow:0 20px 60px rgba(16,185,129,.25);transform:translateY(-8px)}
+
+    .soft-border{position:relative}
+    .soft-border:before{content:'';position:absolute;inset:-1px;border-radius:1rem;background:linear-gradient(120deg,transparent,rgba(52,211,153,.6),transparent);opacity:.4}
+
+    .btc-float{position:absolute;width:90px;opacity:.35;filter:drop-shadow(0 0 24px rgba(255,180,0,.45));animation:float 16s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-28px)}}
+
+    .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent)}
+  </style>
+</head>
+<body class="font-inter theme-transition bg-gradient-to-br from-indigo-950 via-slate-900 to-black text-gray-200 dark relative"> class="font-inter bg-gradient-to-br from-indigo-950 via-slate-900 to-black text-gray-200 dark btc-bg relative">
+
+<!-- LOGIN GATE -->
+<div id="loginGate" class="fixed inset-0 z-50 flex items-center justify-center bg-black">
+  <div class="bg-white/5 p-8 rounded-2xl shadow-xl w-full max-w-sm">
+    <h2 class="text-xl font-semibold mb-2">Investor Login</h2>
+    <input id="password" type="password" placeholder="Password LP" class="w-full px-4 py-2 rounded-lg bg-black/40 border border-white/10 mb-4" />
+    <button onclick="login()" class="w-full py-2 rounded-lg bg-emerald-500 text-black font-semibold">Masuk</button>
+    <p id="error" class="text-red-400 text-xs mt-3 hidden">Password salah</p>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 w-full z-40 bg-black/60 backdrop-blur border-b border-white/10 px-6 py-4 flex justify-between items-center">
+  <h1 class="font-semibold">Zuhdi Partners</h1>
+  <div class="space-x-5 text-sm">
+    <a href="#about" class="link-glide">Tentang</a>
+    <a href="#portfolio" class="link-glide">Portofolio</a>
+    <a href="#reports" class="link-glide">Quarterly</a>
+    <a href="#contact" class="link-glide">Kontak</a>
+    <button onclick="toggleTheme()" class="ml-4 px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 transition">Mode</button>
+  </div>
+</nav>
+
+<!-- HERO SECTION START -->
+<section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-indigo-900 via-slate-900 to-black"></div>
+  <div class="absolute inset-0 pointer-events-none">
+    <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" class="absolute top-1/4 left-1/4 w-40 opacity-20 blur-sm animate-float" />
+    <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" class="absolute bottom-1/4 right-1/3 w-28 opacity-10 blur-md animate-float-slow" />
+  </div>
+  <div class="relative z-10 text-center max-w-3xl">
+    <h1 class="text-5xl font-bold mb-6 tracking-tight">Institutional Digital Asset Fund</h1>
+    <p class="text-gray-300 text-lg mb-8">Long-term partnership. Disciplined capital. Blockchain future.</p>
+    <a href="#login" class="px-8 py-3 rounded-full bg-emerald-500 text-black font-semibold hover:scale-105 transition">Investor Login</a>
+  </div>
+</section>
+<!-- HERO SECTION END -->
+
+<!-- TICKER -->
+<div class="mt-20 overflow-hidden bg-emerald-500/10 py-2 text-emerald-400">
+  <div class="ticker text-sm">BTC ▲ Institutional adoption | ETH ▲ Web3 infrastructure | Digital Asset Fund • Long-Term • Risk Managed</div>
+</div>
+
+<!-- HERO -->
+<section class="min-h-screen flex items-center justify-center text-center relative overflow-hidden">
+  <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" class="btc-float" style="top:12%;left:8%" />
+  <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" class="btc-float" style="top:20%;right:10%;animation-delay:3s" />
+  <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" class="btc-float" style="bottom:22%;left:15%;animation-delay:6s" />
+  <div class="absolute inset-0 bg-black/60"></div>
+  <div class="relative z-10 fade-up">
+    <h2 class="text-5xl font-bold mb-4 tracking-tight">Institutional Digital Asset Fund</h2>
+    <p class="text-gray-300 max-w-xl mx-auto">Long-term · Risk Managed · Limited Partnership</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="max-w-6xl mx-auto px-6 py-20 relative fade-up" class="max-w-6xl mx-auto px-6 py-20 relative">
+  <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" class="absolute right-0 top-10 w-64 opacity-5" />
+  <h3 class="text-3xl font-semibold mb-6">Tentang Perusahaan & Limited Partnership (LP)</h3>
+  <div class="space-y-5 text-gray-400 leading-relaxed">
+    <p><strong>Zuhdi Partners</strong> adalah perusahaan pengelola investasi yang beroperasi melalui struktur <em>Limited Partnership (LP)</em>, dengan pendekatan kemitraan investasi jangka panjang yang terinspirasi dari model klasik seperti <em>Buffett Partners LP</em>.</p>
+    <p>Kami berfokus pada investasi strategis di aset digital, teknologi blockchain, dan perusahaan berbasis kripto dengan perspektif jangka panjang serta disiplin manajemen risiko yang ketat.</p>
+    <p>Didirikan untuk menyediakan akses investasi yang terkelola secara profesional bagi mitra modal institusional dan investor terakreditasi, guna memanfaatkan pertumbuhan dan adopsi teknologi blockchain secara global.</p>
+
+    <h4 class="text-xl font-semibold text-gray-200">Struktur Kemitraan</h4>
+    <ul class="list-disc ml-6">
+      <li><strong>General Partner (GP)</strong>: Bertanggung jawab atas strategi investasi, pengelolaan dana, alokasi modal, dan pengawasan risiko.</li>
+      <li><strong>Limited Partner (LP)</strong>: Menyediakan modal dengan tanggung jawab terbatas tanpa keterlibatan operasional.</li>
+    </ul>
+
+    <h4 class="text-xl font-semibold text-gray-200">Pendekatan Investasi</h4>
+    <ul class="list-disc ml-6">
+      <li>Berorientasi jangka panjang</li>
+      <li>Berbasis fundamental dan nilai intrinsik</li>
+      <li>Disiplin dalam manajemen risiko</li>
+      <li>Selektif dan terukur</li>
+    </ul>
+
+    <h4 class="text-xl font-semibold text-gray-200">Visi</h4>
+    <p>Menjadi pengelola investasi aset digital yang tepercaya dan berstandar institusional dengan fokus pada penciptaan nilai jangka panjang.</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto px-6 mb-20 text-center">
+  <div class="bg-white/5 p-6 rounded-2xl transition glow fade-up"><p class="text-4xl font-bold" data-count="12500000">0</p><span class="text-gray-400">AUM (USD)</span></div>
+  <div class="bg-white/5 p-6 rounded-2xl transition glow fade-up"><p class="text-4xl font-bold infinity">∞</p><span class="text-gray-400">Return YTD</span></div>
+  <div class="bg-white/5 p-6 rounded-2xl transition glow fade-up"><p class="text-4xl font-bold" data-count="10">0</p><span class="text-gray-400">Partners</span></div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder" class="max-w-6xl mx-auto px-6 py-20 fade-up">
+  <h3 class="text-3xl font-semibold mb-8">General Partner</h3>
+  <div class="bg-white/5 rounded-2xl p-8 grid md:grid-cols-2 gap-6 items-center">
+    <div>
+      <h4 class="text-xl font-semibold">Zuhdi</h4>
+      <p class="text-sm text-gray-400 mb-4">Founder & General Partner</p>
+      <p class="text-gray-400">Bertanggung jawab atas strategi investasi, manajemen risiko, alokasi modal, dan tata kelola fund. Berpengalaman dalam aset digital, blockchain, dan pengelolaan portofolio jangka panjang.</p>
+    </div>
+    <div class="text-sm text-gray-400 space-y-2">
+      <p>• Strategi investasi jangka panjang</p>
+      <p>• Risk-managed digital asset allocation</p>
+      <p>• Governance & LP alignment</p>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER PERFORMANCE -->
+<section id="performance" class="max-w-6xl mx-auto px-6 py-20 fade-up">
+  <h3 class="text-3xl font-semibold mb-10">Kinerja Partners (Ringkasan)</h3>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="bg-white/5 rounded-2xl p-6 glow">
+      <h4 class="font-semibold mb-2">Strategic Allocation</h4>
+      <p class="text-sm text-gray-400">Kontribusi partner dalam alokasi modal jangka panjang dan stabilitas portofolio.</p>
+      <p class="mt-4 text-emerald-400 font-semibold">Status: Aktif</p>
+    </div>
+    <div class="bg-white/5 rounded-2xl p-6 glow">
+      <h4 class="font-semibold mb-2">Value Creation</h4>
+      <p class="text-sm text-gray-400">Partisipasi partner dalam penciptaan nilai melalui holding strategis dan governance.</p>
+      <p class="mt-4 text-emerald-400 font-semibold">Performance: Konsisten</p>
+    </div>
+    <div class="bg-white/5 rounded-2xl p-6 glow">
+      <h4 class="font-semibold mb-2">Risk Alignment</h4>
+      <p class="text-sm text-gray-400">Keselarasan kepentingan GP–Partner dalam pengelolaan risiko dan horizon investasi.</p>
+      <p class="mt-4 text-emerald-400 font-semibold">Evaluasi: Positif</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" class="max-w-6xl mx-auto px-6 py-20 fade-up">
+  <h3 class="text-3xl font-semibold mb-10">Milestone Fund</h3>
+  <div class="space-y-6">
+    <div class="border-l-2 border-emerald-400 pl-6"><h4 class="font-semibold">Fund Launch</h4><p class="text-gray-400">Pembentukan struktur LP dan strategi investasi inti.</p></div>
+    <div class="border-l-2 border-emerald-400 pl-6"><h4 class="font-semibold">Growth Phase</h4><p class="text-gray-400">Ekspansi portofolio aset digital dan Web3.</p></div>
+    <div class="border-l-2 border-emerald-400 pl-6"><h4 class="font-semibold">Expansion</h4><p class="text-gray-400">Diversifikasi sektor dan kemitraan strategis.</p></div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="max-w-6xl mx-auto px-6 py-20 relative fade-up">
+  <h3 class="text-3xl font-semibold mb-10">Bidang & Contoh Portofolio Investasi</h3>
+  <div class="grid md:grid-cols-3 gap-6 mb-14">
+    <div class="bg-white/5 p-6 rounded-2xl transition glow"><h4 class="font-semibold mb-2">Bitcoin (BTC)</h4><p class="text-sm text-gray-400">Fondasi portofolio dengan likuiditas tinggi dan peran penyimpan nilai.</p></div>
+    <div class="bg-white/5 p-6 rounded-2xl transition glow"><h4 class="font-semibold mb-2">Blue Chip Crypto</h4><p class="text-sm text-gray-400">Ethereum, Solana, Polygon & jaringan beradopsi luas.</p></div>
+    <div class="bg-white/5 p-6 rounded-2xl transition glow"><h4 class="font-semibold mb-2">Emerging Projects</h4><p class="text-sm text-gray-400">Inovasi Web3 tahap awal–pertumbuhan.</p></div>
+  </div>
+<section id="portfolio" class="max-w-6xl mx-auto px-6 py-20 relative fade-up" class="max-w-6xl mx-auto px-6 py-20 relative">
+  <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" class="absolute left-0 bottom-10 w-56 opacity-5" />
+  <h3 class="text-3xl font-semibold mb-6">Contoh Portofolio Strategis</h3>
+  <p class="text-gray-400 mb-8">Ilustrasi alokasi portofolio pada kondisi pasar normal dengan pendekatan konservatif dan seimbang.</p>
+
+  <div class="grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <canvas id="allocChart"></canvas>
+    </div>
+    <div class="space-y-4 text-gray-400">
+      <p><strong>Bitcoin (BTC) – 60%</strong><br/>Aset inti dengan likuiditas tinggi dan fungsi penyimpan nilai strategis.</p>
+      <p><strong>Blue Chip Crypto – 10%</strong><br/>Proyek beradopsi luas seperti Ethereum, Solana, Polygon.</p>
+      <p><strong>Altcoin / Emerging – 30%</strong><br/>Proyek tahap awal–pertumbuhan dengan potensi inovasi tinggi.</p>
+      <p class="text-xs text-gray-500">Catatan: Alokasi bersifat ilustratif dan tidak menjamin hasil di masa depan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REPORTS -->
+<section id="reports" class="max-w-6xl mx-auto px-6 py-20 fade-up" class="max-w-6xl mx-auto px-6 py-20">
+  <h3 class="text-3xl font-semibold mb-6">Quarterly Letter</h3>
+  <a href="reports/Q1-2026.pdf" class="px-4 py-2 bg-emerald-500 text-black rounded-lg">Unduh PDF</a>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="max-w-6xl mx-auto px-6 py-20 fade-up" class="max-w-6xl mx-auto px-6 py-20">
+  <h3 class="text-3xl font-semibold mb-6">Kontak Resmi</h3>
+  <div class="space-y-2 text-gray-400">
+    <p>WhatsApp: +62 856-4800-6193</p>
+    <p>Instagram: @zuhdi.partners</p>
+    <p>Email: info@zuhdipartners.com</p>
+    <p class="text-xs text-gray-500 mt-4">⚠️ Komunikasi investasi hanya melalui saluran resmi.</p>
+  </div>
+</section>
+
+<footer class="text-center text-xs text-gray-500 py-10">© 2026 Zuhdi Partners</footer>
+
+<script>
+function login(){
+  if(document.getElementById('password').value==='122313'){
+    document.getElementById('loginGate').style.display='none'
+  } else { document.getElementById('error').classList.remove('hidden') }
+}
+
+// Count Up
+const counters=document.querySelectorAll('[data-count]');
+counters.forEach(el=>{let t=0, end=+el.dataset.count; let i=setInterval(()=>{t+=end/100; if(t>=end){el.innerText=end; clearInterval(i)} else el.innerText=Math.floor(t)},20)})
+
+// Chart
+new Chart(document.getElementById('allocChart'),{type:'doughnut',data:{labels:['BTC','Blue Chip','Alt'],datasets:[{data:[60,10,30]}]}})
+
+// Scroll animation
+const els=document.querySelectorAll('.fade-up');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')})},{threshold:.15});
+els.forEach(el=>obs.observe(el));
+</script>
+<canvas id="particles"></canvas>
+<script>
+// Theme toggle
+function toggleTheme(){document.documentElement.classList.toggle('dark')}
+
+// Particle background
+const canvas=document.getElementById('particles');const ctx=canvas.getContext('2d');
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener('resize',resize);
+const nodes=[...Array(60)].map(()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4}));
+function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);nodes.forEach(n=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>canvas.width)n.vx*=-1;if(n.y<0||n.y>canvas.height)n.vy*=-1;ctx.fillStyle='rgba(52,211,153,.4)';ctx.fillRect(n.x,n.y,2,2);nodes.forEach(m=>{const d=Math.hypot(n.x-m.x,n.y-m.y);if(d<120){ctx.strokeStyle='rgba(52,211,153,.08)';ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);ctx.stroke()}})});requestAnimationFrame(draw)}draw();
+</script>
+</body>
+</html>
